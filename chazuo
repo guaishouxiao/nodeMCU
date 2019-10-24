@@ -1,0 +1,21 @@
+print("set up wifi mode")--shezhimoshi
+
+wifi.setmode(wifi.STATION) 
+
+station_cfg={}
+--here SSID and PassWord should be modified according your wireless router
+station_cfg.ssid="Zdd-4089139"  --我的wifi名称 
+station_cfg.pwd="1234567890" --我的wifi密码
+station_cfg.save=true
+wifi.sta.config(station_cfg)
+
+wifi.sta.connect()
+tmr.alarm(1, 1000, 1, function()
+if wifi.sta.getip()== nil then
+print("IP unavaiable, Waiting...") --dengdailianjie
+else
+tmr.stop(1)
+print("Config done, IP is "..wifi.sta.getip())
+dofile("kaiguan.lua")   --zuanhuanwenjianzhixing
+end
+end)
